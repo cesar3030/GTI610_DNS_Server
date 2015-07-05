@@ -93,7 +93,7 @@ public class UDPReceiver extends Thread {
 	public void setRedirectionSeulement(boolean b) {
 		this.RedirectionSeulement = b;
 	}
-
+	
 	public String gethostNameFromPacket() {
 		return DomainName;
 	}
@@ -114,6 +114,18 @@ public class UDPReceiver extends Thread {
 		this.SERVER_DNS = server_dns;
 	}
 
+	/*
+	 * Méthode pour rediriger vers un autre Server DNS
+	 */
+	public void redirectionRequete(UDPSender nouvelleRequete, DatagramSocket socket, DatagramPacket packet) throws IOException{
+		
+		//On set l'adresse du server nouveau server DNS
+		nouvelleRequete.setDest_ip(SERVER_DNS);
+		nouvelleRequete.setDest_port(port);
+		nouvelleRequete.setSendSocket(socket);
+		nouvelleRequete.SendPacketNow(packet);		
+		
+	}
 
 
 	public void setDNSFile(String filename) {
@@ -129,6 +141,7 @@ public class UDPReceiver extends Thread {
 
             QueryFinder queryFinder = new QueryFinder(DNSFile);
 		
+            UDPSender udpSender = new UDPSender();
 			
 			// *Boucle infinie de recpetion
 			while (!this.stop) {
@@ -227,7 +240,11 @@ public class UDPReceiver extends Thread {
                     int requesterPort = paquetRecu.getPort();
 
 					// *Si le mode est redirection seulement
+                    
+  
 						// *Rediriger le paquet vers le serveur DNS
+                    
+                    
 					// *Sinon
 						// *Rechercher l'adresse IP associe au Query Domain name
 						// dans le fichier de correspondance de ce serveur					
@@ -239,8 +256,12 @@ public class UDPReceiver extends Thread {
 							// *Placer ce paquet dans le socket
 							// *Envoyer le paquet
 
-                    if (this.RedirectionSeulement){
+                    	if (RedirectionSeulement){
+                    		//Rediction vers un autre sserveur DNS
+                    		
+                    		redirectionRequete(udpSender,serveur,paquetRecu);                  		
 
+                    		
                     }
                     else{
                         List<String> domainIpList = queryFinder.StartResearch(domainName);
