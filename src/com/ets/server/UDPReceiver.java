@@ -185,6 +185,10 @@ public class UDPReceiver extends Thread {
                     System.out.println("\n---- Answer ----");
                 }
 
+                //we skipped the 9 next bytes to reach the QUESTION Part
+                TabInputStream.skip(9);
+
+                String domainName = getDomainName(TabInputStream);
 
 
                 if(requestType == 0){
@@ -194,10 +198,6 @@ public class UDPReceiver extends Thread {
                     // *Lecture du Query Domain name, a partir du 13 byte
 
 
-                    //we skipped the 9 next bytes to reach the QUESTION Part
-                    TabInputStream.skip(9);
-
-                    String domainName = getDomainName(TabInputStream);
 
                     System.out.println("Le nom de domaine: "+domainName);
 
@@ -260,9 +260,15 @@ public class UDPReceiver extends Thread {
                     // *Placer ce paquet dans le socket
                     // *Envoyer le paquet
 
-                    TabInputStream.skip(12);
 
-                    List<String> IPList = getIpAddressFromANCOUNT(TabInputStream);
+                    TabInputStream.skip(15);
+
+                    //IP list from the response request
+                    List<String> IPListReceived = getIpAddressFromANCOUNT(TabInputStream);
+
+                    //We update the content of the DNS file that contains the IPs/Domains
+                    updateDnsFile(domainName,IPListReceived);
+
 
                 }
 
@@ -367,6 +373,31 @@ public class UDPReceiver extends Thread {
 
         return ipAddress;
 
+    }
+
+    /**
+     * Method that update the contant of the DNS file with the List of IP received in the response request if
+     * they are not already registered in.
+     * @param domainName        The domain name being resolved
+     * @param IPListReceived    The list of IP resolved by another DNS server for this domain name
+     */
+    public void updateDnsFile(String domainName,List<String> IPListReceived){
+
+        QueryFinder queryFinder = new QueryFinder(DNSFile);
+        AnswerRecorder answerRecorder = new AnswerRecorder(DNSFile);
+
+        //IP list from the DNS file
+        List<String> IPListKnew = queryFinder.StartResearch(domainName);
+
+        /*
+         *   For each IP received in the response request, we check if it's already registered in
+         *   the DNS file where all the IP/domainName knew are saved.
+         */
+        for(String IP : IPListReceived){
+            if(!IPListKnew.contains(IP)){
+                answerRecorder.StartRecord(domainName,IP);
+            }
+        }
     }
 
 
