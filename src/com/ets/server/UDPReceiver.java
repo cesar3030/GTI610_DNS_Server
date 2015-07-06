@@ -189,7 +189,8 @@ public class UDPReceiver extends Thread {
                 TabInputStream.skip(9);
 
                 String domainName = getDomainName(TabInputStream);
-
+                InetAddress requesterIP = paquetRecu.getAddress();
+                int requesterPort = paquetRecu.getPort();
 
                 if(requestType == 0){
 
@@ -204,8 +205,7 @@ public class UDPReceiver extends Thread {
                     // *Sauvegarde du Query Domain name
 
                     // *Sauvegarde de l'adresse, du port et de l'identifiant de la requete
-                    InetAddress requesterIP = paquetRecu.getAddress();
-                    int requesterPort = paquetRecu.getPort();
+
 
                     // *Si le mode est redirection seulement
                     // *Rediriger le paquet vers le serveur DNS
@@ -268,6 +268,10 @@ public class UDPReceiver extends Thread {
 
                     //We update the content of the DNS file that contains the IPs/Domains
                     updateDnsFile(domainName,IPListReceived);
+
+                    byte[] newAnswerData = UDPAnswerPacketCreator.getInstance().CreateAnswerPacket(paquetRecu.getData(),IPListReceived);
+                    DatagramPacket answer = new DatagramPacket(newAnswerData,newAnswerData.length,requesterIP,requesterPort);
+                    serveur.send(answer);
 
 
                 }

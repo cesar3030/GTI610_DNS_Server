@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="67ea8f25-c947-4960-b43e-7fe0c43c694d" name="Default" comment="Merge branch 'master' of https://github.com/cesar3030/GTI610_DNS_Server&#10;&#10;# Conflicts:&#10;#&#9;src/com/ets/server/UDPReceiver.java&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/ets/server/UDPReceiver.java" afterPath="$PROJECT_DIR$/src/com/ets/server/UDPReceiver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="DNSServer.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -76,15 +75,15 @@
       <file leaf-file-name="UDPReceiver.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/ets/server/UDPReceiver.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.582505" vertical-offset="3427" max-vertical-offset="5865">
-              <caret line="268" column="41" selection-start-line="268" selection-start-column="41" selection-end-line="268" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.85089463" vertical-offset="3442" max-vertical-offset="5925">
+              <caret line="278" column="52" selection-start-line="278" selection-start-column="52" selection-end-line="278" selection-end-column="52" />
               <folding>
                 <element signature="e#2683#2704#0" expanded="true" />
                 <element signature="e#3292#3293#0" expanded="true" />
                 <element signature="e#3327#3328#0" expanded="true" />
                 <element signature="e#3776#3777#0" expanded="true" />
                 <element signature="e#3801#3802#0" expanded="true" />
-                <element signature="e#11743#11751#0" expanded="true" />
+                <element signature="e#12041#12049#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -485,7 +484,7 @@
       <changelist id="67ea8f25-c947-4960-b43e-7fe0c43c694d" name="Default" comment="" />
       <created>1436026626893</created>
       <updated>1436026626893</updated>
-      <workItem from="1436026639669" duration="24265000" />
+      <workItem from="1436026639669" duration="24465000" />
     </task>
     <task id="LOCAL-00001" summary="We can now read the domain name">
       <created>1436050663604</created>
@@ -499,7 +498,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24265000" />
+    <option name="totallyTimeSpent" value="24465000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -523,10 +522,10 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32891566" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32891566" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24096386" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -709,15 +708,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/ets/server/UDPReceiver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.582505" vertical-offset="3427" max-vertical-offset="5865">
-          <caret line="268" column="41" selection-start-line="268" selection-start-column="41" selection-end-line="268" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.85089463" vertical-offset="3442" max-vertical-offset="5925">
+          <caret line="278" column="52" selection-start-line="278" selection-start-column="52" selection-end-line="278" selection-end-column="52" />
           <folding>
             <element signature="e#2683#2704#0" expanded="true" />
             <element signature="e#3292#3293#0" expanded="true" />
             <element signature="e#3327#3328#0" expanded="true" />
             <element signature="e#3776#3777#0" expanded="true" />
             <element signature="e#3801#3802#0" expanded="true" />
-            <element signature="e#11743#11751#0" expanded="true" />
+            <element signature="e#12041#12049#0" expanded="true" />
           </folding>
         </state>
       </provider>
