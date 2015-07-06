@@ -16,7 +16,7 @@ import java.net.UnknownHostException;
 	public class UDPSender  {
 
 	private final static int BUF_SIZE = 1024;
-	
+	private String SERVER_DNS = null;
 	private String dest_ip = null; //ip de reception
 	private int dest_port = 53;  // port de reception
 	private DatagramSocket SendSocket = null; //socket d'envoi
@@ -127,6 +127,10 @@ import java.net.UnknownHostException;
 		if(packet == null)
 			throw new IOException("Invalid Packet for send (null)");
 		try {
+			
+			//cree l'adresse de destination
+			this.addr = InetAddress.getByName(SERVER_DNS);
+			
 			//set la destination du packet
 			packet.setAddress(addr);
 			packet.setPort(dest_port);
