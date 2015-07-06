@@ -120,9 +120,9 @@ public class UDPReceiver extends Thread {
 	public void redirectionRequete(UDPSender nouvelleRequete, DatagramSocket socket, DatagramPacket packet) throws IOException{
 
 		//On set l'adresse du server nouveau server DNS
-		nouvelleRequete.setDest_ip(SERVER_DNS);
-		nouvelleRequete.setDest_port(port);
-		nouvelleRequete.setSendSocket(socket);
+		//nouvelleRequete.setDest_ip(SERVER_DNS);
+		//nouvelleRequete.setDest_port(portRedirect);
+		//nouvelleRequete.setSendSocket(socket);
 		nouvelleRequete.SendPacketNow(packet);
 
 	}
@@ -137,18 +137,19 @@ public class UDPReceiver extends Thread {
 
             DatagramSocket serveur = new DatagramSocket(this.port); // *Creation d'un socket UDP
 
-
             QueryFinder queryFinder = new QueryFinder(DNSFile);
 
-            UDPSender udpSender = new UDPSender();
+
+            UDPSender udpSender = new UDPSender(InetAddress.getByName(SERVER_DNS),portRedirect,null);
 
 			// *Boucle infinie de recpetion
 			while (!this.stop) {
 
 				byte[] buff = new byte[0xFF];
 				DatagramPacket paquetRecu = new DatagramPacket(buff,buff.length);
-				//System.out.println("Serveur DNS  "+serveur.getLocalAddress()+"  en attente sur le port: "+ serveur.getLocalPort());
-                System.out.println("Serveur DNS  "+this.SERVER_DNS+"  en attente sur le port: "+ serveur.getLocalPort());
+
+				System.out.println("Serveur DNS  "+serveur.getLocalAddress()+"  en attente sur le port: "+ serveur.getLocalPort());
+                //System.out.println("Serveur DNS  "+this.SERVER_DNS+"  en attente sur le port: "+ serveur.getLocalPort());
 
 				// *Reception d'un paquet UDP via le socket
 				serveur.receive(paquetRecu);
@@ -192,15 +193,14 @@ public class UDPReceiver extends Thread {
                 InetAddress requesterIP = paquetRecu.getAddress();
                 int requesterPort = paquetRecu.getPort();
 
+                System.out.println("Le nom de domaine: "+domainName);
+
                 if(requestType == 0){
 
                     // ****** Dans le cas d'un paquet requete *****
 
                     // *Lecture du Query Domain name, a partir du 13 byte
 
-
-
-                    System.out.println("Le nom de domaine: "+domainName);
 
                     // *Sauvegarde du Query Domain name
 
@@ -230,6 +230,8 @@ public class UDPReceiver extends Thread {
                         if(domainIpList.size()==0){
                             //we redirect to another DNS server
                             System.out.println("On redirige vers google dns !!");
+                            //Rediction vers un autre sserveur DNS
+                            redirectionRequete(udpSender,serveur,paquetRecu);
                         }
                         else{
                             byte[] newAnswerData = UDPAnswerPacketCreator.getInstance().CreateAnswerPacket(paquetRecu.getData(),domainIpList);

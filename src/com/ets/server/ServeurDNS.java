@@ -43,7 +43,7 @@ public class ServeurDNS {
         if(args[0].equals("default")){
             if (args.length <= 1) {
                 //UDPR.setSERVER_DNS("10.162.8.51");
-                UDPR.setSERVER_DNS("127.0.0.1");
+                UDPR.setSERVER_DNS("8.8.8.8");
                 f = new File("DNSFILE.TXT");
                 if(f.exists()){
                     UDPR.setDNSFile("DNSFILE.TXT");
