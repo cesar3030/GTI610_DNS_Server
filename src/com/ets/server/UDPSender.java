@@ -22,6 +22,24 @@ import java.net.UnknownHostException;
 	private DatagramSocket SendSocket = null; //socket d'envoi
 	private InetAddress addr = null; //adresse de reception (format inet)
 	
+	
+	public void setSendSocket(DatagramSocket sendSocket) {
+		SendSocket = sendSocket;
+	}
+
+	public void setDest_ip(String dest_ip) {
+		this.dest_ip = dest_ip;
+	}
+	
+	public void setDest_port(int dest_port) {
+		this.dest_port = dest_port;
+	}
+
+	public void setAddr(InetAddress addr) {
+		this.addr = addr;
+	}
+
+	
 	/**
 	 * Contructor
 	 * @param destip = adresse ip ou envoyer le paquet
@@ -67,6 +85,11 @@ import java.net.UnknownHostException;
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	//Constructeur par defaut
+	public UDPSender() {
+
 	}
 
 	/**
