@@ -83,8 +83,8 @@ import java.util.Scanner;
 		}
 		
 		//prend une ligne
-		uneligne = scanneurFichierSource.nextLine();
-		hostnameFromFile = uneligne.split(" ");
+		//uneligne = scanneurFichierSource.nextLine();
+		//hostnameFromFile = uneligne.split(" ");
 		
 		while( scanneurFichierSource.hasNextLine() ){
 			uneligne = scanneurFichierSource.nextLine();

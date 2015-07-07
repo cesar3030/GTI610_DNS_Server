@@ -139,14 +139,16 @@ public class UDPReceiver extends Thread {
 
             QueryFinder queryFinder = new QueryFinder(DNSFile);
 
-
+            System.out.println(SERVER_DNS);
             UDPSender udpSender = new UDPSender(InetAddress.getByName(SERVER_DNS),portRedirect,null);
 
 			// *Boucle infinie de recpetion
 			while (!this.stop) {
 
 				byte[] buff = new byte[0xFF];
+
 				DatagramPacket paquetRecu = new DatagramPacket(buff,buff.length);
+                //paquetRecu.setAddress(InetAddress.getByName("127.0.0.1"));
 
 				System.out.println("Serveur DNS  "+serveur.getLocalAddress()+"  en attente sur le port: "+ serveur.getLocalPort());
                 //System.out.println("Serveur DNS  "+this.SERVER_DNS+"  en attente sur le port: "+ serveur.getLocalPort());

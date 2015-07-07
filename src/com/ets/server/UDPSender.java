@@ -134,8 +134,9 @@ import java.net.UnknownHostException;
 			//set la destination du packet
 			packet.setAddress(addr);
 			packet.setPort(dest_port);
+
 			//Envoi le packet
-			System.out.println("Sending packet to adr="+dest_ip+" port="+dest_port+ "srcport="+SendSocket.getLocalPort());
+			System.out.println("Sending packet to adr="+dest_ip+" port="+dest_port+ " srcport="+SendSocket.getLocalPort());
 			SendSocket.send(packet);
 		} catch (Exception e) {
 			System.err.println("Probleme a l'execution :");
