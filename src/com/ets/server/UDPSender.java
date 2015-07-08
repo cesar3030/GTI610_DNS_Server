@@ -129,7 +129,7 @@ import java.net.UnknownHostException;
 		try {
 			
 			//cree l'adresse de destination
-			this.addr = InetAddress.getByName(SERVER_DNS);
+			//this.addr = InetAddress.getByName(SERVER_DNS);
 			
 			//set la destination du packet
 			packet.setAddress(addr);

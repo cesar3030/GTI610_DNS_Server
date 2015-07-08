@@ -135,12 +135,12 @@ public class UDPReceiver extends Thread {
 	public void run() {
 		try {
 
+            //InetAddress ipServer = InetAddress.getLocalHost();
             DatagramSocket serveur = new DatagramSocket(this.port); // *Creation d'un socket UDP
 
             QueryFinder queryFinder = new QueryFinder(DNSFile);
 
-            System.out.println(SERVER_DNS);
-            UDPSender udpSender = new UDPSender(InetAddress.getByName(SERVER_DNS),portRedirect,null);
+            UDPSender udpSender = new UDPSender(InetAddress.getByName(SERVER_DNS),portRedirect,serveur);
 
 			// *Boucle infinie de recpetion
 			while (!this.stop) {
@@ -232,7 +232,8 @@ public class UDPReceiver extends Thread {
                         if(domainIpList.size()==0){
                             //we redirect to another DNS server
                             System.out.println("On redirige vers google dns !!");
-                            //Rediction vers un autre sserveur DNS
+
+                            //Rediction vers un autre serveur DNS
                             redirectionRequete(udpSender,serveur,paquetRecu);
                         }
                         else{
