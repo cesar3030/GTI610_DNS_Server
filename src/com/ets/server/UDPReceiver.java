@@ -188,9 +188,17 @@ public class UDPReceiver extends Thread {
                     System.out.println("\n---- Answer ----");
                 }
 
-                //we skipped the 9 next bytes to reach the QUESTION Part
-                TabInputStream.skip(9);
 
+
+                //we skip the 3 next bytes to reach the ANCOUNT part
+                TabInputStream.skip(3);
+                int ancount = TabInputStream.read()+TabInputStream.read();
+                System.out.println("ancount = " + ancount);
+
+                //we skip the 4 next bytes to reach the Query part or the request
+                TabInputStream.skip(4);
+
+                //we extract the domainName that we have to resolve
                 String domainName = getDomainName(TabInputStream);
                 InetAddress requesterIP = paquetRecu.getAddress();
                 int requesterPort = paquetRecu.getPort();
@@ -234,7 +242,7 @@ public class UDPReceiver extends Thread {
                             System.out.println("On redirige vers google dns !!");
 
                             //Rediction vers un autre serveur DNS
-                            redirectionRequete(udpSender,serveur,paquetRecu);
+                            redirectionRequete(udpSender, serveur, paquetRecu);
                         }
                         else{
                             byte[] newAnswerData = UDPAnswerPacketCreator.getInstance().CreateAnswerPacket(paquetRecu.getData(),domainIpList);
@@ -266,13 +274,13 @@ public class UDPReceiver extends Thread {
                     // *Envoyer le paquet
 
 
-                    TabInputStream.skip(15);
+                    TabInputStream.skip(12);
 
                     //IP list from the response request
-                    List<String> IPListReceived = getIpAddressFromANCOUNT(TabInputStream);
+                    List<String> IPListReceived = getIpAddressFromANCOUNT(TabInputStream,ancount);
 
                     //We update the content of the DNS file that contains the IPs/Domains
-                    updateDnsFile(domainName,IPListReceived);
+                    //updateDnsFile(domainName,IPListReceived);
 
                     byte[] newAnswerData = UDPAnswerPacketCreator.getInstance().CreateAnswerPacket(paquetRecu.getData(),IPListReceived);
                     DatagramPacket answer = new DatagramPacket(newAnswerData,newAnswerData.length,requesterIP,requesterPort);
@@ -347,29 +355,28 @@ public class UDPReceiver extends Thread {
 
     /**
      * Method that return the list of IP address that have been resolved for the given domain name.
-     * The method has to be called than the current byte of the ByteArrayInputStream read is 15
-     * @param TabInputStream
+     * The method has to be called when the current byte of the ByteArrayInputStream read is 15
+     * @param TabInputStream    The packet received
+     * @param ancount The number of ip that we have to extract
      * @return  The list of IP Address
      */
-    private List<String> getIpAddressFromANCOUNT(ByteArrayInputStream TabInputStream){
+    private List<String> getIpAddressFromANCOUNT(ByteArrayInputStream TabInputStream,int ancount){
 
         List<String> ipAddress = new ArrayList<String>();
-
-        //We read the next byte, this numbers correspond to the numbers of IP that need to be extracted
-        int nbIpAddress=TabInputStream.read();
 
         //we store the current IP address from the request
         String currentIpAddress = "";
 
+        int tmp;
+        for (int i=1; i < 4*ancount+1; i++){
 
-        for (int i=1; i < 4*nbIpAddress+1; i++){
-
-            int tmp = TabInputStream.read();
+            //int tmp = TabInputStream.read();
 
             if(i%4 == 0) {
                tmp = TabInputStream.read();
                currentIpAddress+= Integer.toString(tmp);
                ipAddress.add(currentIpAddress);
+                System.out.println(currentIpAddress);
                currentIpAddress="";
             }
             else {

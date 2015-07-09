@@ -13,7 +13,3 @@ google.us 167.91.12.1
 google.us 1.0.43.4
 google.us 167.117.12.1
 google.us 1.0.43.4
-google.es 167.84.12.1
-google.es 1.0.66.4
-google.es 167.88.12.1
-google.es 1.0.66.4
