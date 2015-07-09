@@ -274,7 +274,7 @@ public class UDPReceiver extends Thread {
                     // *Envoyer le paquet
 
 
-                    TabInputStream.skip(12);
+                    TabInputStream.skip(16);
 
                     //IP list from the response request
                     List<String> IPListReceived = getIpAddressFromANCOUNT(TabInputStream,ancount);
@@ -376,17 +376,25 @@ public class UDPReceiver extends Thread {
                tmp = TabInputStream.read();
                currentIpAddress+= Integer.toString(tmp);
                ipAddress.add(currentIpAddress);
-                System.out.println(currentIpAddress);
+               System.out.println(currentIpAddress);
                currentIpAddress="";
+
+                for (int j = 0; j < 12; j++) {
+                    TabInputStream.read();
+                }
+
             }
             else {
                 tmp = TabInputStream.read();
                 currentIpAddress+= Integer.toString(tmp);
                 currentIpAddress+=".";
             }
+            /*tmp = TabInputStream.read();
+            currentIpAddress+= Integer.toString(tmp);
+            currentIpAddress+=".";*/
 
         }
-
+        System.out.println(currentIpAddress);
         return ipAddress;
 
     }
